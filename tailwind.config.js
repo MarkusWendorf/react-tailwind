@@ -1,7 +1,12 @@
 module.exports = {
+  purge: ["./**/*.html", "./src/**/*.tsx"],
   theme: {
-    extend: {}
+    extend: {},
   },
   variants: {},
-  plugins: []
+  plugins: [],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
 };

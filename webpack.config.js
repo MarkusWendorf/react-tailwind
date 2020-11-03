@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 const srcDirectory = path.resolve(__dirname, "src");
 const outDirectory = path.resolve(__dirname, "www");
-
 
 const config = {
   entry: srcDirectory + "/index.tsx",
@@ -22,18 +22,12 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader", options: {importLoaders: 1},
-          },
-          "postcss-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".json", ".css", ".scss"],
+    extensions: [".tsx", ".ts", ".js", ".json", ".css"],
     alias: {
       src: path.resolve(__dirname, "src/"),
     },
@@ -44,10 +38,7 @@ const config = {
     contentBase: outDirectory,
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {from: "assets/*"},
-      {from: "src/index.html"},
-    ]),
+    new CopyWebpackPlugin({ patterns: [{ from: "assets" }, { from: "src/index.html" }] }),
     new MiniCssExtractPlugin(),
   ],
 };
